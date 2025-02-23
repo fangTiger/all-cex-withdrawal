@@ -3,14 +3,16 @@ import ccxt
 import random
 
 #----main-options----#
-switch_cex = "binance"       # binance, mexc, kucoin, gate, okx, huobi, bybit
-symbolWithdraw = "USDT"      # символ токена
+switch_cex = "okx"       # binance, mexc, kucoin, gate, okx, huobi, bybit
+symbolWithdraw = "ETH"      # символ токена
+# network = "Base"     # ID сети
 network = "Arbitrum One"     # ID сети
-proxy_server = "http://login:password@IP:port"
+proxy_server = "http://gtxlmaix:1a0s5ohj8ytl@103.80.10.58:6336"
 
 #----second-options----#
-amount = [1.5, 2.5]          # минимальная и максимальная сумма
-decimal_places = 2           # количество знаков, после запятой для генерации случайных чисел
+# amount = [0.002, 0.0022]          # минимальная и максимальная сумма
+amount = [0.001, 0.0015]          # минимальная и максимальная сумма
+decimal_places = 4           # количество знаков, после запятой для генерации случайных чисел
 delay = [35, 85]             # минимальная и максимальная задержка
 shuffle_wallets = "no"       # нужно ли мешать кошельки yes/no
 #----end-all-options----#
@@ -20,9 +22,9 @@ class API:
     binance_apikey = "your_api"
     binance_apisecret = "your_api_secret"
     # okx API
-    okx_apikey = "your_api"
-    okx_apisecret = "your_api_secret"
-    okx_passphrase = "your_api_password"
+    okx_apikey = "okx_apikey"
+    okx_apisecret = "okx_apisecret"
+    okx_passphrase = "R8f@okx_passphrase&kP2d$Xz"
     # bybit API
     bybit_apikey = "your_api"
     bybit_apisecret = "your_api_secret"
@@ -78,7 +80,7 @@ def okx_withdraw(address, amount_to_withdrawal, wallet_number):
         'secret': API.okx_apisecret,
         'password': API.okx_passphrase,
         'enableRateLimit': True,
-        'proxies': proxies,
+        'proxies': proxies
     })
 
     try:
@@ -96,11 +98,11 @@ def okx_withdraw(address, amount_to_withdrawal, wallet_number):
             }
         )
 
-        print(f'\n>>>[OKx] Вывел {amount_to_withdrawal} {symbolWithdraw} ', flush=True)
-        print(f'    [{wallet_number}]{address}', flush=True)
+        print(f'提币数量 {amount_to_withdrawal} {symbolWithdraw} ', flush=True)
+        print(f'提币成功 {address}', flush=True)
     except Exception as error:
-        print(f'\n>>>[OKx] Не удалось вывести {amount_to_withdrawal} {symbolWithdraw}: {error} ', flush=True)
-        print(f'    [{wallet_number}]{address}', flush=True)
+        print(f'提币数量 {amount_to_withdrawal} {symbolWithdraw}: {error} ', flush=True)
+        print(f'提币失败 {address}', flush=True)
 
 
 def bybit_withdraw(address, amount_to_withdrawal, wallet_number):
